@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: shared-app-pv
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/opt/data/ai/shared-app-data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shared-app-pvc
+  namespace: ai
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-service
+  namespace: ai
+  labels:
+    app: ai-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ai-service
+  template:
+    metadata:
+      labels:
+        app: ai-service
+    spec:
+      containers:
+        - name: ai-service-container
+          image: localhost:32000/ai-service:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres-service.ai.svc.cluster.local:5432/ai_db
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: ai-secrets
+                  key: postgres-user
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ai-secrets
+                  key: postgres-password
+            - name: SPRING_DATA_REDIS_HOST
+              value: redis-service.ai.svc.cluster.local
+            - name: SPRING_DATA_REDIS_PORT
+              value: "6379"
+            - name: SPRING_DATA_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ai-secrets
+                  key: redis-password
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: shared-data-volume
+              mountPath: /app/shared-files
+      volumes:
+        - name: shared-data-volume
+          persistentVolumeClaim:
+            claimName: shared-app-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-service
+  namespace: ai
+spec:
+  type: ClusterIP
+  selector:
+    app: ai-service
+  ports:
+    - port: 8080
+      targetPort: 8080

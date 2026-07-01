@@ -1,0 +1,24 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:postgresql://localhost:31432/ai_db
+    username: database_user
+    password: secure_password
+    driver-class-name: org.postgresql.Driver
+  ai:
+    chat:
+      memory:
+        redis:
+          host: localhost
+          port: 30379
+          password: secure_redis_password
+          timeout: 6000ms
+    vectorstore:
+      pgvector:
+        initialize-schema: true
+        embedding-dimension: 1536
+
+app:
+  shared-folder-path: "/opt/data/ai/shared-app-data"
