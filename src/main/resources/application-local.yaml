@@ -21,3 +21,6 @@ spring:
         embedding-dimension: 1536
 app:
   shared-folder-path: "/opt/data/ai/shared-app-data"
+service:
+  resource:
+    path: ${user.home}/data/ai/monitoring

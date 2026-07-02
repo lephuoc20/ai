@@ -1,7 +1,7 @@
-package com.phuoclv.ai.document.transform.internal;
+package com.phuoclv.ai.etl.transform.internal;
 
-import com.phuoclv.ai.document.transform.DocumentTransform;
-import com.phuoclv.ai.document.transform.DocumentTransformService;
+import com.phuoclv.ai.etl.transform.DocumentTransform;
+import com.phuoclv.ai.etl.transform.DocumentTransformService;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.stereotype.Service;
@@ -23,6 +23,7 @@ class DocumentTransformerService implements DocumentTransformService {
         metaData.put("creator_id", documentTransform.creatorId());
         metaData.put("creator_name", documentTransform.creatorName());
         metaData.put("requested_at", documentTransform.createdAt());
+        metaData.put("tags", documentTransform.tags());
         return tokenTextSplitter.split(document).stream();
     }
 

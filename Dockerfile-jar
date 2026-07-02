@@ -1,0 +1,15 @@
+ARG REGISTRY="localhost:32000"
+FROM $REGISTRY/java-builder-jar:latest AS builder
+ARG APP
+WORKDIR /build
+COPY pom.xml .
+COPY src/ ./src
+COPY ${APP} ./${APP}
+RUN mvn -pl ${APP} package -DskipNativeBuild=true -DskipTests
+
+FROM gcr.io/distroless/java25-debian13
+ARG APP
+WORKDIR /app
+COPY --from=builder /build/${APP}/target/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]

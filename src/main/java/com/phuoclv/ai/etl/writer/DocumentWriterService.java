@@ -1,4 +1,4 @@
-package com.phuoclv.ai.document.writer;
+package com.phuoclv.ai.etl.writer;
 
 import org.springframework.ai.document.Document;
 

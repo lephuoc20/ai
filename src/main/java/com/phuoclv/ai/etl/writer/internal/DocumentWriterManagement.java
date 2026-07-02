@@ -1,6 +1,6 @@
-package com.phuoclv.ai.document.writer.internal;
+package com.phuoclv.ai.etl.writer.internal;
 
-import com.phuoclv.ai.document.writer.DocumentWriterService;
+import com.phuoclv.ai.etl.writer.DocumentWriterService;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.stereotype.Service;

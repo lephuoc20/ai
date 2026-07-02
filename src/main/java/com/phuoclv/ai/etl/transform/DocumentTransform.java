@@ -1,17 +1,17 @@
-package com.phuoclv.ai.document.transform;
+package com.phuoclv.ai.etl.transform;
 
 import org.jmolecules.event.types.DomainEvent;
 import org.springframework.ai.document.Document;
 
-import java.time.LocalDateTime;
-import java.util.Set;
+import java.time.OffsetDateTime;
+import java.util.Collection;
 
 public record DocumentTransform(
         Document document,
-        String resourceId,
+        Long resourceId,
         String creatorName,
         String creatorId,
-        LocalDateTime createdAt,
-        Set<String> tags
+        OffsetDateTime createdAt,
+        Collection<?> tags
 ) implements DomainEvent  {
 }

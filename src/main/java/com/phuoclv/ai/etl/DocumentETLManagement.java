@@ -1,12 +1,16 @@
-package com.phuoclv.ai.document;
+package com.phuoclv.ai.etl;
 
-import com.phuoclv.ai.document.reader.DocumentReaderService;
-import com.phuoclv.ai.document.transform.DocumentTransform;
-import com.phuoclv.ai.document.transform.DocumentTransformService;
-import com.phuoclv.ai.document.writer.DocumentWriterService;
+import com.phuoclv.ai.etl.reader.DocumentReaderService;
+import com.phuoclv.ai.etl.transform.DocumentTransform;
+import com.phuoclv.ai.etl.transform.DocumentTransformService;
+import com.phuoclv.ai.etl.writer.DocumentWriterService;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.event.TransactionalEventListener;
 
+import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,8 +31,10 @@ class DocumentETLManagement implements DocumentEtlService {
     }
 
     @Override
+    @TransactionalEventListener
     public void handleResourceSubmitted(ResourceSubmitted resourceSubmitted) {
-        var documents = this.documentReaderService.read(resourceSubmitted.resource());
+        Resource fileResource = new FileSystemResource(Paths.get(resourceSubmitted.filePath()));
+        var documents = this.documentReaderService.read(fileResource);
         var docStream = documents.stream().map(document -> new DocumentTransform(document,
                 resourceSubmitted.id(),
                 resourceSubmitted.creatorName(),
@@ -37,6 +43,6 @@ class DocumentETLManagement implements DocumentEtlService {
                 resourceSubmitted.tags()));
         var transformedDocuments = documentTransformService.transform(docStream).collect(Collectors.toList());
         documentWriterService.write(transformedDocuments);
-        this.eventPublisher.publishEvent(new ResourceStored(resourceSubmitted.id(), resourceSubmitted.creatorId(), resourceSubmitted.creatorName()));
+        this.eventPublisher.publishEvent(new ResourceProcessedEvent(resourceSubmitted.id(), resourceSubmitted.creatorId(), resourceSubmitted.creatorName()));
     }
 }

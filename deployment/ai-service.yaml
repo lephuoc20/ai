@@ -11,7 +11,7 @@ spec:
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: "/opt/data/ai/shared-app-data"
+    path: "/opt/data/ai/monitoring"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -73,7 +73,7 @@ spec:
             - containerPort: 8080
           volumeMounts:
             - name: shared-data-volume
-              mountPath: /app/shared-files
+              mountPath: /app/monitoring
       volumes:
         - name: shared-data-volume
           persistentVolumeClaim:

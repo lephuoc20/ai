@@ -1,4 +1,4 @@
-package com.phuoclv.ai.document.transform;
+package com.phuoclv.ai.etl.transform;
 
 import org.springframework.ai.document.Document;
 

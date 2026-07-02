@@ -1,4 +1,4 @@
-package com.phuoclv.ai.document.reader;
+package com.phuoclv.ai.etl.reader;
 
 import org.springframework.ai.document.Document;
 import org.springframework.core.io.Resource;

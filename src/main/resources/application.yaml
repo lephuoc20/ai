@@ -13,3 +13,6 @@ spring:
         distance-type: COSINE_DISTANCE
         dimensions: 1536
         max-document-batch-size: 10000
+service:
+  resource:
+    path: /app/monitoring

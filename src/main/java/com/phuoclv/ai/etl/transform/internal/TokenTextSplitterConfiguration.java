@@ -1,4 +1,4 @@
-package com.phuoclv.ai.document.transform.internal;
+package com.phuoclv.ai.etl.transform.internal;
 
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.context.annotation.Bean;
