@@ -11,7 +11,7 @@ spring:
       pgvector:
         index-type: HNSW
         distance-type: COSINE_DISTANCE
-        dimensions: 1536
+        dimensions: 1800
         max-document-batch-size: 10000
 service:
   resource:

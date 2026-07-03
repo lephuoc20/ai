@@ -1,4 +1,4 @@
-package com.phuoclv.ai.api.internal;
+package com.phuoclv.ai.resource.internal;
 
 import java.time.OffsetDateTime;
 import java.util.Collection;

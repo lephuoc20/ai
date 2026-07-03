@@ -1,6 +1,6 @@
-package com.phuoclv.ai.api.internal;
+package com.phuoclv.ai.resource.internal;
 
-import com.phuoclv.ai.api.SubmitResourceRequest;
+import com.phuoclv.ai.resource.SubmitResourceRequest;
 
 public interface ResourceService {
     ResourceEntity handleNewResourceSubmit(SubmitResourceRequest submitResourceRequest);

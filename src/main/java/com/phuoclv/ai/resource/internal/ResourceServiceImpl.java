@@ -1,6 +1,6 @@
-package com.phuoclv.ai.api.internal;
+package com.phuoclv.ai.resource.internal;
 
-import com.phuoclv.ai.api.SubmitResourceRequest;
+import com.phuoclv.ai.resource.SubmitResourceRequest;
 import com.phuoclv.ai.etl.ResourceProcessedEvent;
 import com.phuoclv.ai.etl.ResourceSubmitted;
 import jakarta.annotation.PostConstruct;
@@ -27,7 +27,6 @@ import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -108,7 +107,7 @@ class ResourceServiceImpl implements ResourceService {
         Path finalDestination = null;
         try {
             if (Files.exists(folderPath)) {
-                log.error("folder is already existed {}", folderPath);
+                log.info("folder is already existed {}", folderPath);
             } else {
                 Files.createDirectories(folderPath);
             }

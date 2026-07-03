@@ -1,4 +1,4 @@
-package com.phuoclv.ai.api.conf;
+package com.phuoclv.ai.common;
 
 import java.time.Instant;
 

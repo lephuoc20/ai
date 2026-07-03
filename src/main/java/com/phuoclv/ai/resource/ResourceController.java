@@ -1,7 +1,7 @@
-package com.phuoclv.ai.api;
+package com.phuoclv.ai.resource;
 
-import com.phuoclv.ai.api.internal.ResourceEntity;
-import com.phuoclv.ai.api.internal.ResourceService;
+import com.phuoclv.ai.resource.internal.ResourceEntity;
+import com.phuoclv.ai.resource.internal.ResourceService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;

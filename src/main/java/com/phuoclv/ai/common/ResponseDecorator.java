@@ -1,6 +1,6 @@
-package com.phuoclv.ai.api.conf;
+package com.phuoclv.ai.common;
 
-import com.phuoclv.ai.api.IgnoreDecoration;
+import com.phuoclv.ai.resource.IgnoreDecoration;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

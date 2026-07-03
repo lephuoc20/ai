@@ -1,4 +1,4 @@
-package com.phuoclv.ai.api.internal;
+package com.phuoclv.ai.resource.internal;
 
 public enum ResourceStatus {
     SUBMITTED,

@@ -15,12 +15,29 @@ spring:
           port: 30379
           password: secure_redis_password
           timeout: 6000ms
+          max-messages-per-conversation: 500
+          max-conversation-ids: 10000
     vectorstore:
       pgvector:
         initialize-schema: true
-        embedding-dimension: 1536
+        embedding-dimension: 1800
+    model:
+      chat: google-genai
+      embedding:
+        text: google-genai
+    google:
+      genai:
+        api-key: "AQ.Ab8RN6LC5EqMk6uKaSZz98bZAKQGWh-OWOozMnV2LE8ua3W2gg"
+        chat:
+          model: gemini-2.5-flash
+        embedding:
+          api-key: "AQ.Ab8RN6LC5EqMk6uKaSZz98bZAKQGWh-OWOozMnV2LE8ua3W2gg"
+          text:
+            dimensions: 1800
+            model: gemini-embedding-001
 app:
   shared-folder-path: "/opt/data/ai/shared-app-data"
 service:
   resource:
     path: ${user.home}/data/ai/monitoring
+

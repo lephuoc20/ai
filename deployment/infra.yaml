@@ -7,7 +7,7 @@ metadata:
 spec:
   storageClassName: manual
   capacity:
-    storage: 5Gi
+    storage: 20Gi # Increased to 20Gi to accommodate HuggingFace models/dependencies
   accessModes:
     - ReadWriteOnce
   hostPath:
@@ -20,12 +20,12 @@ metadata:
   namespace: ai
 spec:
   storageClassName: manual
-  volumeName: postgres-ai-pv # <-- Force binds directly to the PV above
+  volumeName: postgres-ai-pv
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 20Gi # Must match the updated PV capacity
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -49,7 +49,7 @@ metadata:
   namespace: ai
 spec:
   storageClassName: manual
-  volumeName: redis-pv # <-- Force binds directly to the PV above
+  volumeName: redis-pv
   accessModes:
     - ReadWriteOnce
   resources:
@@ -57,7 +57,7 @@ spec:
       storage: 2Gi
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet # Changed to StatefulSet for proper database state management
 metadata:
   name: postgres-pgvector
   namespace: ai

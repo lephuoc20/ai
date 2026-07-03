@@ -1,4 +1,4 @@
-package com.phuoclv.ai.api;
+package com.phuoclv.ai.resource;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

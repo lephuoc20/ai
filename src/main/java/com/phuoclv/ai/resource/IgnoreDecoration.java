@@ -1,4 +1,4 @@
-package com.phuoclv.ai.api;
+package com.phuoclv.ai.resource;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
